@@ -7,12 +7,12 @@ const {
     createTask,
     getSingleTask,
     updateTask,
-    deleteTask
+    deleteTask,
 } = require ('../controller/tasks')
 
 
 router.get('/', getAllTasks)
-router.post('', createTask)
+router.post('/', createTask)
 router.get('/:id', getSingleTask)
 router.patch('/:id', updateTask)
 router.delete('/:id', deleteTask)
@@ -21,9 +21,6 @@ router.delete('/:id', deleteTask)
 
 //export to "app.js"
 module.exports = router
-
-
-
 
 
 

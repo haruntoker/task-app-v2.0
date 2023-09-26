@@ -9,13 +9,13 @@ const app = express()
 //middlewares
 app.use(bodyParser.json())
 app.use(express.json())
-
+app.use(express.static('./public'))
 
 
 //home route
-app.get('/hello', (req,res)=>{
-    res.status(200).send('Task Manager App')
-})
+// app.get('/hello', (req,res)=>{
+//     res.status(200).send('Task Manager App')
+// })
 
 //base routes
 app.use('/api/v1/tasks', tasks)
@@ -38,19 +38,21 @@ app.use('/api/v1/tasks', tasks)
 
 
 
-//PORT + mongoDB URI + .env
+
+// 1- PORT + mongoDB URI + .env
 dotenv.config();
 const PORT = process.env.PORT || 4000;
 const MONGOURI = process.env.MONGO_URI;
 
 
 
-// PORT & mongoDB Connection!
+// 2- PORT & mongoDB Connection!
 const connect = async ()=>{
     try {
         await mongoose.connect(MONGOURI, {
             useUnifiedTopology: true,
-            useNewUrlParser: true 
+            useNewUrlParser: true ,
+            useFindAndModify: false
         })
         console.log('Successfully connected to MongoDB!');
         app.listen(PORT, () => {
