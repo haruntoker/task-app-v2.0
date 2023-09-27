@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
 const tasks = require('./routes/tasks.js')
+const notFound = require("./middleware/not-found.js")
+const errorHandlerMW = require('./middleware/error-handler.js')
 
 const app = express()
 
@@ -17,22 +19,14 @@ app.use(express.static('./public'))
 //     res.status(200).send('Task Manager App')
 // })
 
-//base routes
+//all routes
 app.use('/api/v1/tasks', tasks)
 
 
-
-
-
-/**
- * app.get("/api/v1/tasks")        -> get all the tasks
- * app.post("/api/v1/tasks")       -> create new task
- * app.get("/api/v1/tasks/:id")    -> get single task
- * app.pach("/api/v1/tasks/:id")   -> update task
- * app.delete("/api/v1/tasks/:id") -> delete task
- */
-
-
+//notFound middleware;
+app.use(notFound)
+//error handler middleware;
+app.use(errorHandlerMW)
 
 
 
